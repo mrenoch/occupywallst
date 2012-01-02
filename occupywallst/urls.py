@@ -67,6 +67,7 @@ urlpatterns = patterns('',
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(adminsite.urls)),
+    url(r'^carousel_demo/$', 'occupywallst.views.carousel_demo'),
     url(r'^(.*)$', 'occupywallst.views.bonus'),
 )
 

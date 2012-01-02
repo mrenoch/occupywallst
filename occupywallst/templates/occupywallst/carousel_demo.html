@@ -1,0 +1,87 @@
+{% extends base %}
+{% load ows i18n l10n %}
+
+{% block stylesheets %}
+<link href="/media/js/jcarousel/skins/occupywallst/skin.css" media="screen" rel="stylesheet" type="text/css"/> 
+{% endblock stylesheets %}
+
+{% block js_init %}
+  {{ block.super }}
+  index_init();
+  article_init();
+{% endblock js_init %}
+
+{% block content %}
+  <h4>Carousel Demo<h4>
+<div id="home_banner">
+
+    <div id="photoswitcher">
+        <div class=" jcarousel-skin-occupywallst">
+        <div class="jcarousel-container-horizontal">
+        <div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal">
+        <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
+
+            <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
+                {% for item in items %}
+                    <li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-{{item.position}} jcarousel-item-{{item.position}}-horizontal">
+                        <div class="jcarousel-caption">
+                            <h4>{{item.title}}</h4>
+                            <p></p>
+                            <p>{{item.description}}</p>
+                            <p class="action">
+
+                                <a href="{{item.action}}">Learn More >></a>
+                            </p>
+                        </div>
+                        <input type="hidden" value="jcarousel-selector-{{item.position}}"></input>
+                        <img src="{{item.url}}" alt="jCarousel image {{item.position}}" />
+                    </li>
+                {% endfor %}
+            </ul>
+                
+            <ul class="nav dl_navigation">
+
+                {% for item in items %}
+                    <li id="jcarousel-selector-{{item.position}}" class="jcarousel-selector"><a>{{item.position}}</a></li>
+                 {% endfor %}
+                <li><a id="toggle_play" class="jcarousel-pause"></a></li>
+            </ul>
+        </div></div></div></div>
+    </div>
+            
+
+
+</div>
+
+
+
+  {{ verbiage.aboveindex }}
+  
+  <div class="container main">
+  <table class="maintable" style="width:100%; border-collapse:collapse;"><tbody><tr><td id="left">
+  <h4>Latest Posts</h4>
+    <section id="articles">
+      {% with read_more="True" %}
+        {% for article in articles %}
+          {% include "occupywallst/article_content.html" %}
+        {% endfor %}
+      {% endwith %}
+    </section>
+    <p style="font-weight:bold">
+      <a href="/archive/page-2/">{% trans 'Older Posts' %}</a>
+    </p>
+  </td><td id="right">
+    <section id="mission">
+      {{ verbiage.index_sidebar }}
+    </section>
+  </td></tr></tbody></table></div>
+
+  <div style="display:none" id="editform" class="editform">
+    <textarea rows="5" cols="70"></textarea><br />
+    <button class="save">{% trans 'save' %}</button>
+    <button class="cancel">{% trans 'cancel' %}</button>
+    <img class="loader" src="{{ MEDIA_URL }}img/ajax-loader.gif" width="16" height="16" />
+    <span class="error"></span>
+  </div>
+
+{% endblock content %}

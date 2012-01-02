@@ -143,6 +143,22 @@ def bonus(request, page):
         res = res.render(RequestContext(request))
     return HttpResponse(res)
 
+def carousel_demo(request):
+    """a demo template to test the carousel functionality"""
+    articles = (db.Article.objects
+                .select_related("author")
+                .filter(is_visible=True, is_forum=False, is_deleted=False)
+                .order_by('-published'))
+
+    # temporarily hardcode the items array until we call this in dynamically from teh carousel model - /mrenoch
+
+    items = [{'title' : 'title1', 'description' : 'description1', 'position' : '1', 'url' : 'http://i.imgur.com/AwMqo.jpg', 'action' : 'http://occupywallst.org/article/watch-live-ows-new-years-eve-festivities/' },
+             {'title' : 'title2', 'description' : 'description2', 'position' : '2', 'url' : 'http://staging.ows.lobstertech.com/media/img/D17.jpg', 'action': 'http://occupywallst.org/article/occupy-2012-wall-street-new-years-eve-celebration/' },
+             {'title' : 'title3', 'description' : 'description3', 'position' : '3', 'url' : 'http://i.imgur.com/Qa1zR.jpg', 'action' : 'http://occupywallst.org/article/ows-thanks-our-supporters/' }]
+
+    return render_to_response('occupywallst/carousel_demo.html',
+                              {'articles': articles[:10], 'items' : items },
+                              context_instance=RequestContext(request))
 
 def _instate_hierarchy(comments):
     """Rearranges list of comments into hierarchical structure
