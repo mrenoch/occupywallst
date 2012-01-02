@@ -2,13 +2,7 @@
 {% load ows i18n l10n %}
 
 {% block stylesheets %}
-  <style type="text/css">
-    #navbar .nav-news {
-      background: #900;
-      background: -webkit-gradient(linear, left top, left bottom, from(#a11), to(#900));
-      background: -moz-linear-gradient(top,  #a11,  #900);
-    }
-  </style>
+
 {% endblock stylesheets %}
 
 {% block js_init %}
@@ -19,7 +13,10 @@
 
 {% block content %}
   {{ verbiage.aboveindex }}
-  <table style="width:100%"><tbody><tr><td id="left">
+  
+  <div class="container main">
+  <table class="maintable" style="width:100%; border-collapse:collapse;"><tbody><tr><td id="left">
+  <h4>Latest Posts</h4>
     <section id="articles">
       {% with read_more="True" %}
         {% for article in articles %}
@@ -34,7 +31,7 @@
     <section id="mission">
       {{ verbiage.index_sidebar }}
     </section>
-  </td></tr></tbody></table>
+  </td></tr></tbody></table></div>
 
   <div style="display:none" id="editform" class="editform">
     <textarea rows="5" cols="70"></textarea><br />
